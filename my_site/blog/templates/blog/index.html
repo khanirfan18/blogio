@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<header id="main-navigation">
+    <h1>
+        <a href="">Irfan' Blog</a>
+    </h1>
+    <nav>
+        <a href="">All Posts</a>
+    </nav>
+</header>
+
+<section id="welcome">
+    <header>
+        <img src="" alt="irfan - the author the Blog" />
+        <h2>IRFAN's Blog</h2>
+    </header>
+
+    <p>Hi, iam Irfan and i love about tech and the world!</p>
+</section>
+
+<section id="latest-posts">
+    <h2>My Latest Thoughts..</h2>
+    <ul>
+        <li>
+            <article class="post">
+                <a href="">
+                    <img src="" alt="mountain hiking" />
+                    <div class="post__content">
+                        <h3>Mountain Hiking</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum totam sunt illo deserunt quod vitae voluptatum facere, nulla, molestias dignissimos reiciendis ipsum quidem accusantium error pariatur eos? Facere, officia esse.</p>
+                    </div>
+                </a>
+            </article>
+        </li>
+    </ul>
+</section>
+
+<section id="about">
+    <h2>What i Do</h2>
+    <p>I love programming and pixel arts and linux systems :)</p>
+    <p>Love learning new stuff in programming</p>
+</section>
+{% endblock %}
