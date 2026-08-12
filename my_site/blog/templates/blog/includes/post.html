@@ -1,0 +1,12 @@
+{% load static %}      
+        <li>
+            <article class="post">
+                <a href="{% url "blog:post-detail-page" "slug-value" %}">
+                    <img src="{% static "blog/images/mt.webp" %}" alt="mountain hiking" />
+                    <div class="post__content">
+                        <h3>Mountain Hiking</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum totam sunt illo deserunt quod vitae voluptatum facere, nulla, molestias dignissimos reiciendis ipsum quidem accusantium error pariatur eos? Facere, officia esse.</p>
+                    </div>
+                </a>
+            </article>
+        </li>
