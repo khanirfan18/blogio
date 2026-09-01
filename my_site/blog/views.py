@@ -1,8 +1,10 @@
-from django.shortcuts import render,get_object_or_404
-from django.http import HttpResponse
-from datetime import date
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView
+from django.views import View
 from .models import Post
+from .forms import CommentForm
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 
@@ -30,12 +32,49 @@ class AllPostsView(ListView):
     context_object_name = 'all_posts'
 
 
-class SinglePostView(DetailView):
+class SinglePostView(View):
     template_name = "blog/post-detail.html"
     model = Post
-    context_object_name = "posts"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["caption"] = self.object.caption.all()
-        return context
+    def get(self,request,slug):
+        post = Post.objects.get(slug = slug)
+        context = {
+            "posts":post,
+            "post_tags": post.caption.all(),
+            "comment_form": CommentForm(),
+            "comments": post.comments.all().order_by("-id")
+        }
+        return render(request,"blog/post-detail.html",context)
+
+    def post(self,request,slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return HttpResponseRedirect(reverse("blog:post-detail-page",args=[slug]))
+
+
+        #else if form is invalid!
+        post = Post.objects.get(slug = slug)
+        context = {
+            "posts":post,
+            "post_tags": post.caption.all(),
+            "comment_form": comment_form,
+            "comments": post.comments.all().order_by("-id")
+        }
+        return render(request,"blog/post-detail.html",context)
+
+
+# class CommentView(FormView):
+#     template_name = "post-detail.html"
+#     form_class = CommentForm
+#     success_url = reverse_lazy('post-detail-page')
+
+#     def form_valid(self, form):
+#         form.save()
+#         return super().form_valid(form)
+    
+
+
