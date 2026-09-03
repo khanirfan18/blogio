@@ -1,0 +1,15 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+django_my_site/
+venv/
+
+# Django
+db.sqlite3
+staticfiles/
+uploads/
